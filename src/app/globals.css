@@ -2,25 +2,72 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0b1220;
+
+  /* Brand palette */
+  --color-navy-950: #060a14;
+  --color-navy-900: #0b1220;
+  --color-navy-800: #121c33;
+  --color-navy-700: #1c2a4a;
+  --color-navy-600: #2c3e63;
+
+  --color-blue-700: #1e40af;
+  --color-blue-600: #1d4ed8;
+  --color-blue-500: #2f6fed;
+  --color-blue-400: #4d8cff;
+  --color-sky-400: #4fc3f7;
+  --color-sky-300: #8fdcff;
+
+  --color-gold-500: #c9a227;
+  --color-gold-400: #d8b64e;
+  --color-gold-300: #e6cd82;
+
+  --color-mist-50: #f7f8fa;
+  --color-mist-100: #eef0f4;
+  --color-mist-200: #e2e5ec;
+
+  --color-ink-500: #4b5468;
+  --color-ink-400: #6b7386;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-navy-950: var(--color-navy-950);
+  --color-navy-900: var(--color-navy-900);
+  --color-navy-800: var(--color-navy-800);
+  --color-navy-700: var(--color-navy-700);
+  --color-navy-600: var(--color-navy-600);
+
+  --color-blue-700: var(--color-blue-700);
+  --color-blue-600: var(--color-blue-600);
+  --color-blue-500: var(--color-blue-500);
+  --color-blue-400: var(--color-blue-400);
+  --color-sky-400: var(--color-sky-400);
+  --color-sky-300: var(--color-sky-300);
+
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-300: var(--color-gold-300);
+
+  --color-mist-50: var(--color-mist-50);
+  --color-mist-100: var(--color-mist-100);
+  --color-mist-200: var(--color-mist-200);
+
+  --color-ink-500: var(--color-ink-500);
+  --color-ink-400: var(--color-ink-400);
+
+  --font-sans: var(--font-inter);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-sky-300);
+  color: var(--color-navy-900);
 }
