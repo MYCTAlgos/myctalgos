@@ -63,8 +63,8 @@ function ChartTooltip({
 }) {
   if (!active || !payload || payload.length === 0) return null;
   return (
-    <div className="rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs shadow-lg">
-      <p className="mb-1 font-mono text-white/50">{label}</p>
+    <div className="rounded-lg border border-navy-900/10 bg-white px-3 py-2 text-xs shadow-lg">
+      <p className="mb-1 font-mono text-ink-400">{label}</p>
       {payload.map((entry) => (
         <p key={entry.name} style={{ color: entry.color }}>
           {entry.name}: {entry.value}
@@ -126,17 +126,17 @@ export function AdminDashboard({
   return (
     <>
       <div className="mb-16 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-2xl border border-blue-400/20 bg-navy-900 p-6">
-          <p className="font-mono text-3xl font-semibold text-sky-300">
+        <div className="rounded-2xl border border-navy-900/10 bg-white p-6">
+          <p className="font-mono text-3xl font-semibold text-navy-900">
             {contacts.length}
           </p>
-          <p className="mt-1 text-sm text-white/60">Contact messages</p>
+          <p className="mt-1 text-sm text-ink-500">Contact messages</p>
         </div>
-        <div className="rounded-2xl border border-blue-400/20 bg-navy-900 p-6">
-          <p className="font-mono text-3xl font-semibold text-sky-300">
+        <div className="rounded-2xl border border-navy-900/10 bg-white p-6">
+          <p className="font-mono text-3xl font-semibold text-navy-900">
             {discoveries.length}
           </p>
-          <p className="mt-1 text-sm text-white/60">Discovery submissions</p>
+          <p className="mt-1 text-sm text-ink-500">Discovery submissions</p>
         </div>
       </div>
 
@@ -144,9 +144,9 @@ export function AdminDashboard({
         <h2 className="mb-6 text-lg font-medium text-white">
           Submissions Over Time
         </h2>
-        <div className="rounded-2xl border border-white/10 bg-navy-900 p-6">
+        <div className="rounded-2xl border border-navy-900/10 bg-white p-6">
           {chartData.length === 0 ? (
-            <p className="text-sm text-white/50">Not enough data yet.</p>
+            <p className="text-sm text-ink-500">Not enough data yet.</p>
           ) : (
             <div className="h-72 w-full">
               <ResponsiveContainer width="100%" height="100%">
@@ -154,38 +154,38 @@ export function AdminDashboard({
                   data={chartData}
                   margin={{ top: 4, right: 12, left: -12, bottom: 0 }}
                 >
-                  <CartesianGrid stroke="#1c2a4a" vertical={false} />
+                  <CartesianGrid stroke="#e2e6f0" vertical={false} />
                   <XAxis
                     dataKey="label"
-                    stroke="rgba(255,255,255,0.4)"
+                    stroke="#6b7386"
                     fontSize={12}
                     tickLine={false}
                     axisLine={false}
                   />
                   <YAxis
                     allowDecimals={false}
-                    stroke="rgba(255,255,255,0.4)"
+                    stroke="#6b7386"
                     fontSize={12}
                     tickLine={false}
                     axisLine={false}
                   />
                   <Tooltip content={<ChartTooltip />} />
                   <Legend
-                    wrapperStyle={{ fontSize: 12, color: "rgba(255,255,255,0.7)" }}
+                    wrapperStyle={{ fontSize: 12, color: "#4b5468" }}
                   />
                   <Line
                     type="monotone"
                     dataKey="Contact"
-                    stroke="#4d8cff"
+                    stroke="#1d4ed8"
                     strokeWidth={2}
-                    dot={{ r: 3, fill: "#4d8cff" }}
+                    dot={{ r: 3, fill: "#1d4ed8" }}
                   />
                   <Line
                     type="monotone"
                     dataKey="Discovery"
-                    stroke="#8fdcff"
+                    stroke="#1c2a4a"
                     strokeWidth={2}
-                    dot={{ r: 3, fill: "#8fdcff" }}
+                    dot={{ r: 3, fill: "#1c2a4a" }}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -205,20 +205,20 @@ export function AdminDashboard({
             {contacts.map((c) => (
               <div
                 key={c.id}
-                className="rounded-xl border border-white/10 bg-navy-900 p-5"
+                className="rounded-xl border border-navy-900/10 bg-white p-5"
               >
                 <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-                  <p className="text-sm font-medium text-white">
+                  <p className="text-sm font-medium text-navy-900">
                     {c.name}{" "}
-                    <span className="font-normal text-white/50">
+                    <span className="font-normal text-ink-500">
                       &lt;{c.email}&gt;
                     </span>
                   </p>
-                  <p className="font-mono text-xs text-white/40">
+                  <p className="font-mono text-xs text-ink-400">
                     {formatDate(c.created_at)}
                   </p>
                 </div>
-                <p className="text-sm leading-relaxed text-white/70">
+                <p className="text-sm leading-relaxed text-ink-500">
                   {c.message}
                 </p>
               </div>
@@ -280,62 +280,62 @@ export function AdminDashboard({
             {filteredDiscoveries.map((d) => (
               <div
                 key={d.id}
-                className="rounded-2xl border border-white/10 bg-navy-900 p-6"
+                className="rounded-2xl border border-navy-900/10 bg-white p-6"
               >
                 <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
                   <div>
-                    <p className="text-base font-medium text-white">
+                    <p className="text-base font-medium text-navy-900">
                       {d.name}{" "}
-                      <span className="font-normal text-white/50">
+                      <span className="font-normal text-ink-500">
                         &middot; {d.business_name}
                       </span>
                     </p>
-                    <p className="text-sm text-white/50">
+                    <p className="text-sm text-ink-500">
                       {d.email}
                       {d.phone ? ` · ${d.phone}` : ""}
                     </p>
                   </div>
-                  <p className="font-mono text-xs text-white/40">
+                  <p className="font-mono text-xs text-ink-400">
                     {formatDate(d.created_at)}
                   </p>
                 </div>
 
                 <div className="mb-4 grid gap-3 text-sm sm:grid-cols-3">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/40">
+                    <p className="text-xs uppercase tracking-wider text-ink-400">
                       Industry
                     </p>
-                    <p className="text-white/80">{d.industry}</p>
+                    <p className="text-navy-900/80">{d.industry}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/40">
+                    <p className="text-xs uppercase tracking-wider text-ink-400">
                       Business Type
                     </p>
-                    <p className="text-white/80">{d.business_type}</p>
+                    <p className="text-navy-900/80">{d.business_type}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/40">
+                    <p className="text-xs uppercase tracking-wider text-ink-400">
                       Years Operating
                     </p>
-                    <p className="text-white/80">{d.years_operating}</p>
+                    <p className="text-navy-900/80">{d.years_operating}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/40">
+                    <p className="text-xs uppercase tracking-wider text-ink-400">
                       Audience
                     </p>
-                    <p className="text-white/80">{d.audience}</p>
+                    <p className="text-navy-900/80">{d.audience}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/40">
+                    <p className="text-xs uppercase tracking-wider text-ink-400">
                       Budget
                     </p>
-                    <p className="text-white/80">{d.budget}</p>
+                    <p className="text-navy-900/80">{d.budget}</p>
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-white/40">
+                    <p className="text-xs uppercase tracking-wider text-ink-400">
                       Timeline
                     </p>
-                    <p className="text-white/80">{d.timeline}</p>
+                    <p className="text-navy-900/80">{d.timeline}</p>
                   </div>
                 </div>
 
@@ -343,7 +343,7 @@ export function AdminDashboard({
                   {d.interests.map((interest) => (
                     <span
                       key={interest}
-                      className="rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 font-mono text-xs text-sky-300"
+                      className="rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 font-mono text-xs text-blue-600"
                     >
                       {interest}
                     </span>
@@ -351,39 +351,39 @@ export function AdminDashboard({
                 </div>
 
                 {d.learn_topics && d.learn_topics.length > 0 && (
-                  <p className="mb-1 text-xs leading-relaxed text-white/60">
-                    <span className="text-white/40">Learn topics: </span>
+                  <p className="mb-1 text-xs leading-relaxed text-ink-500">
+                    <span className="text-ink-400">Learn topics: </span>
                     {d.learn_topics.join(", ")}
                     {d.learn_other ? `, ${d.learn_other}` : ""}
                   </p>
                 )}
                 {d.build_services && d.build_services.length > 0 && (
-                  <p className="mb-1 text-xs leading-relaxed text-white/60">
-                    <span className="text-white/40">Build services: </span>
+                  <p className="mb-1 text-xs leading-relaxed text-ink-500">
+                    <span className="text-ink-400">Build services: </span>
                     {d.build_services.join(", ")}
                   </p>
                 )}
                 {d.build_details && (
-                  <p className="mb-1 text-xs leading-relaxed text-white/60">
-                    <span className="text-white/40">Build details: </span>
+                  <p className="mb-1 text-xs leading-relaxed text-ink-500">
+                    <span className="text-ink-400">Build details: </span>
                     {d.build_details}
                   </p>
                 )}
                 {d.scale_features && d.scale_features.length > 0 && (
-                  <p className="mb-1 text-xs leading-relaxed text-white/60">
-                    <span className="text-white/40">Scale features: </span>
+                  <p className="mb-1 text-xs leading-relaxed text-ink-500">
+                    <span className="text-ink-400">Scale features: </span>
                     {d.scale_features.join(", ")}
                     {d.scale_other ? `, ${d.scale_other}` : ""}
                   </p>
                 )}
                 {d.referral_source && (
-                  <p className="mb-1 text-xs leading-relaxed text-white/60">
-                    <span className="text-white/40">Heard about us: </span>
+                  <p className="mb-1 text-xs leading-relaxed text-ink-500">
+                    <span className="text-ink-400">Heard about us: </span>
                     {d.referral_source}
                   </p>
                 )}
                 {d.message && (
-                  <p className="mt-2 text-sm leading-relaxed text-white/70">
+                  <p className="mt-2 text-sm leading-relaxed text-ink-500">
                     {d.message}
                   </p>
                 )}
