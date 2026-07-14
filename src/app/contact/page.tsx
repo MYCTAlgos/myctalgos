@@ -31,10 +31,10 @@ export default function ContactPage() {
               Email
             </p>
             <a
-              href="mailto:hello@myctalgos.com"
+              href="mailto:myctalgos@gmail.com"
               className="transition-colors duration-200 hover:text-blue-600"
             >
-              hello@myctalgos.com
+              myctalgos@gmail.com
             </a>
           </div>
         </div>
