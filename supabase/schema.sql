@@ -62,3 +62,20 @@ alter table discovery_submissions add column if not exists phone text;
 alter table discovery_submissions add column if not exists budget text;
 alter table discovery_submissions add column if not exists timeline text;
 alter table discovery_submissions add column if not exists referral_source text;
+
+-- Admin dashboard access: anyone who successfully signs in through Supabase
+-- Auth (only Mike and Yadley, since public sign-up is disabled) can read
+-- submissions. The anon key still can't read anything, only insert.
+create policy "Allow authenticated read" on contact_submissions
+  for select
+  to authenticated
+  using (true);
+
+grant select on contact_submissions to authenticated;
+
+create policy "Allow authenticated read" on discovery_submissions
+  for select
+  to authenticated
+  using (true);
+
+grant select on discovery_submissions to authenticated;
