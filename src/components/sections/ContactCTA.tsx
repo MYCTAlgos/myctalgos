@@ -16,7 +16,7 @@ export function ContactCTA() {
       >
         <div className="max-w-xl">
           <h2 className="text-3xl font-medium leading-tight tracking-tight text-white sm:text-4xl">
-            Ready to build — or ready to learn?
+            Ready to build, or ready to learn?
           </h2>
           <p className="mt-4 text-base leading-relaxed text-white/60">
             Tell us where you are and where you want to go. We&rsquo;ll help
@@ -25,11 +25,11 @@ export function ContactCTA() {
         </div>
         <div className="flex flex-wrap gap-4">
           <Button
-            href="/contact"
+            href="/discovery"
             variant="primary"
-            className="!bg-gold-500 !border-gold-500 !text-navy-900 hover:!bg-gold-400"
+            className="!border-none !bg-gradient-to-r !from-blue-600 !to-sky-400 hover:!opacity-90"
           >
-            Start a Conversation
+            Let&rsquo;s Build
           </Button>
         </div>
       </motion.div>

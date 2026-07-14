@@ -9,23 +9,13 @@ const PANELS = [
     label: "Build",
     title: "We build the systems your business runs on.",
     description:
-      "Custom web applications, dashboards, and automation tools designed around how your organization actually works — not a generic template.",
-    points: [
-      "Web applications & internal tools",
-      "Dashboards for real-time decisions",
-      "Automation that removes manual work",
-    ],
+      "Custom web applications, dashboards, and automation tools designed around how your business actually works, not a generic template.",
   },
   {
     label: "Empower",
     title: "We help you understand and own what we build.",
     description:
       "Technology should make people more capable, not more dependent. We teach the thinking behind the systems so you can grow into a builder yourself.",
-    points: [
-      "Plain-language technical education",
-      "Ownership of your own systems",
-      "A path from user to builder",
-    ],
   },
 ] as const;
 
@@ -39,7 +29,7 @@ export function WhatWeDo() {
         </h2>
       </div>
 
-      <div className="grid gap-px overflow-hidden rounded-2xl border border-blue-900/20 bg-blue-900/20 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         {PANELS.map((panel, i) => (
           <motion.div
             key={panel.label}
@@ -47,7 +37,7 @@ export function WhatWeDo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
-            className="bg-gradient-to-br from-blue-700 to-navy-900 p-10 lg:p-12"
+            className="rounded-2xl bg-navy-900 p-10 lg:p-12"
           >
             <p className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-sky-300">
               {panel.label}
@@ -55,20 +45,9 @@ export function WhatWeDo() {
             <h3 className="mb-4 text-2xl font-medium tracking-tight text-white">
               {panel.title}
             </h3>
-            <p className="mb-8 text-sm leading-relaxed text-white/75">
+            <p className="text-sm leading-relaxed text-white/75">
               {panel.description}
             </p>
-            <ul className="flex flex-col gap-3">
-              {panel.points.map((point) => (
-                <li
-                  key={point}
-                  className="flex items-center gap-3 text-sm text-white"
-                >
-                  <span className="h-1 w-1 rounded-full bg-sky-300" />
-                  {point}
-                </li>
-              ))}
-            </ul>
           </motion.div>
         ))}
       </div>

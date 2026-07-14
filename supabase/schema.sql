@@ -27,6 +27,7 @@ create table if not exists discovery_submissions (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   email text not null,
+  phone text,
   business_name text not null,
   industry text not null,
   business_type text not null,
@@ -37,8 +38,11 @@ create table if not exists discovery_submissions (
   learn_other text,
   build_services text[],
   build_details text,
+  budget text not null,
+  timeline text not null,
   scale_features text[],
   scale_other text,
+  referral_source text,
   message text,
   created_at timestamptz not null default now()
 );
@@ -51,3 +55,10 @@ create policy "Allow anon insert" on discovery_submissions
   with check (true);
 
 grant insert on discovery_submissions to anon;
+
+-- Migration: run this if discovery_submissions already exists without
+-- these columns (e.g. it was created before this schema update).
+alter table discovery_submissions add column if not exists phone text;
+alter table discovery_submissions add column if not exists budget text;
+alter table discovery_submissions add column if not exists timeline text;
+alter table discovery_submissions add column if not exists referral_source text;

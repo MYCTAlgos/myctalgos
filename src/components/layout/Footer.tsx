@@ -56,7 +56,7 @@ export function Footer() {
         <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
           <p className="italic text-white/30">
-            Order precedes creation.
+            Capability, not dependency.
           </p>
         </div>
       </div>

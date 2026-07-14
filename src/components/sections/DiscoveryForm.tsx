@@ -3,11 +3,14 @@
 import { FormEvent, useState } from "react";
 import {
   AUDIENCES,
+  BUDGET_RANGES,
   BUSINESS_TYPES,
   BUILD_SERVICE_OPTIONS,
   INDUSTRIES,
   LEARN_TOPICS,
+  REFERRAL_SOURCES,
   SCALE_FEATURES,
+  TIMELINES,
   YEARS_OPERATING,
 } from "@/lib/content";
 
@@ -61,6 +64,7 @@ export function DiscoveryForm() {
     const payload = {
       name: raw.name,
       email: raw.email,
+      phone: raw.phone || null,
       businessName: raw.businessName,
       industry: industry === "Other" ? industryOther : industry,
       businessType:
@@ -75,8 +79,11 @@ export function DiscoveryForm() {
       learnOther: raw.learnOther || null,
       buildServices,
       buildDetails: raw.buildDetails || null,
+      budget: raw.budget,
+      timeline: raw.timeline,
       scaleFeatures,
       scaleOther: raw.scaleOther || null,
+      referralSource: raw.referralSource || null,
       message: raw.message || null,
     };
 
@@ -140,6 +147,12 @@ export function DiscoveryForm() {
               Email
             </label>
             <input id="email" name="email" type="email" required className={inputClass} />
+          </div>
+          <div>
+            <label htmlFor="phone" className={labelClass}>
+              Phone (optional)
+            </label>
+            <input id="phone" name="phone" type="tel" className={inputClass} />
           </div>
           <div className="sm:col-span-2">
             <label htmlFor="businessName" className={labelClass}>
@@ -289,7 +302,7 @@ export function DiscoveryForm() {
           What are you looking for?
         </h2>
         <p className="mb-6 text-sm text-ink-500">
-          Select everything that applies — you can want both.
+          Select everything that applies. You can want both.
         </p>
         <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
           <label className="flex items-center gap-3 text-sm text-navy-900">
@@ -384,6 +397,56 @@ export function DiscoveryForm() {
       </div>
 
       <div>
+        <h2 className="mb-6 text-lg font-medium text-navy-900">
+          Project Details
+        </h2>
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div>
+            <label htmlFor="budget" className={labelClass}>
+              Budget Range
+            </label>
+            <select
+              id="budget"
+              name="budget"
+              required
+              className={inputClass}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select a range
+              </option>
+              {BUDGET_RANGES.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="timeline" className={labelClass}>
+              Timeline
+            </label>
+            <select
+              id="timeline"
+              name="timeline"
+              required
+              className={inputClass}
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select a timeline
+              </option>
+              {TIMELINES.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div>
         <h2 className="mb-2 text-lg font-medium text-navy-900">
           What would help you scale?
         </h2>
@@ -414,6 +477,25 @@ export function DiscoveryForm() {
           </label>
           <input id="scaleOther" name="scaleOther" type="text" className={inputClass} />
         </div>
+      </div>
+
+      <div>
+        <label htmlFor="referralSource" className={labelClass}>
+          How Did You Hear About Us? (optional)
+        </label>
+        <select
+          id="referralSource"
+          name="referralSource"
+          className={inputClass}
+          defaultValue=""
+        >
+          <option value="">Prefer not to say</option>
+          {REFERRAL_SOURCES.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div>

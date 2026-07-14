@@ -4,7 +4,7 @@ import { sendNotificationEmail } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { name, email, message, interest } = body;
+  const { name, email, message } = body;
 
   if (!name || !email || !message) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
   const { error } = await supabase
     .from("contact_submissions")
-    .insert({ name, email, message, interest });
+    .insert({ name, email, message });
 
   if (error) {
     console.error("Failed to save contact submission:", error);
@@ -24,7 +24,6 @@ export async function POST(request: NextRequest) {
     `
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Interest:</strong> ${interest ?? "Not specified"}</p>
       <p><strong>Message:</strong></p>
       <p>${message}</p>
     `

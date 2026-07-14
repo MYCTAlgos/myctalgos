@@ -5,23 +5,23 @@ import { ContactCTA } from "@/components/sections/ContactCTA";
 import { SERVICES, SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: `Services — ${SITE.name}`,
+  title: `Services | ${SITE.name}`,
   description:
-    "Custom web applications, dashboards, automation, and systems architecture built around how your business actually works.",
+    "Custom web applications, AI-assisted tools, dashboards, and automation built around how your business actually works.",
 };
 
 const PROCESS = [
   {
     step: "01",
-    title: "Understand the structure",
+    title: "Understand how you work",
     description:
-      "We start by mapping how your operation actually works — the data, the decisions, the people involved.",
+      "We start by learning how your business actually runs: the data, the decisions, and the people involved.",
   },
   {
     step: "02",
-    title: "Design the system",
+    title: "Design the plan",
     description:
-      "We design an architecture that mirrors that structure, not one that forces you to change how you work.",
+      "We design a plan that fits how you work, not one that forces you to change.",
   },
   {
     step: "03",
@@ -42,13 +42,13 @@ export default function ServicesPage() {
           Systems built around how your business actually runs.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-500">
-          We design and build the software layer of your operation —
+          We design and build the software your business runs on, including
           applications, dashboards, and automation that hold up under real
           use.
         </p>
       </SectionWrapper>
 
-      <SectionWrapper tone="mist">
+      <SectionWrapper tone="light">
         <div className="grid gap-6 sm:grid-cols-2">
           {SERVICES.map((service) => (
             <ServiceCard key={service.title} {...service} />

@@ -33,7 +33,7 @@ export function ContactForm() {
       <div className="rounded-2xl border border-navy-900/10 bg-mist-50 p-8">
         <p className="text-lg font-medium text-navy-900">Message sent.</p>
         <p className="mt-2 text-sm leading-relaxed text-ink-500">
-          Thanks for reaching out — we&rsquo;ll be in touch soon.
+          Thanks for reaching out. We&rsquo;ll be in touch soon.
         </p>
       </div>
     );
@@ -72,24 +72,6 @@ export function ContactForm() {
             className="w-full rounded-lg border border-navy-900/15 bg-white px-4 py-3 text-sm text-navy-900 outline-none transition-colors duration-200 focus:border-blue-500"
           />
         </div>
-      </div>
-
-      <div>
-        <label
-          htmlFor="interest"
-          className="mb-2 block text-xs font-medium uppercase tracking-wider text-ink-500"
-        >
-          I&rsquo;m interested in
-        </label>
-        <select
-          id="interest"
-          name="interest"
-          className="w-full rounded-lg border border-navy-900/15 bg-white px-4 py-3 text-sm text-navy-900 outline-none transition-colors duration-200 focus:border-blue-500"
-        >
-          <option value="build">Building a system</option>
-          <option value="learn">Learning</option>
-          <option value="both">Both</option>
-        </select>
       </div>
 
       <div>

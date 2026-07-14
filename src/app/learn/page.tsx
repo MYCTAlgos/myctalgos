@@ -5,9 +5,9 @@ import { ContactCTA } from "@/components/sections/ContactCTA";
 import { LEARN_TRACKS, SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: `Learn — ${SITE.name}`,
+  title: `Learn | ${SITE.name}`,
   description:
-    "We teach people how to understand technology so they can grow from users into builders.",
+    "We teach people how to understand technology, including AI, so they can grow from users into builders.",
 };
 
 const AUDIENCE = [
@@ -19,12 +19,12 @@ const AUDIENCE = [
   {
     title: "Teams",
     description:
-      "Give your staff the technical literacy to maintain and extend the tools they use every day.",
+      "Help your team understand and take care of the tools they use every day.",
   },
   {
     title: "Individuals",
     description:
-      "Start from zero and build a real mental model for how software, data, and logic work together.",
+      "Start from zero and build a real understanding of how software and technology actually work.",
   },
 ] as const;
 
@@ -39,18 +39,18 @@ export default function LearnPage() {
           Understand the technology behind your work.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-500">
-          We don&rsquo;t just build systems for people — we help them
+          We don&rsquo;t just build systems for people. We help them
           understand and own their systems. Learning is not an add-on to
           what we do. It is half of what we do.
         </p>
         <div className="mt-10">
-          <Button href="/contact" variant="primary">
+          <Button href="/discovery" variant="primary">
             Start Learning
           </Button>
         </div>
       </SectionWrapper>
 
-      <SectionWrapper tone="mist">
+      <SectionWrapper tone="light">
         <div className="mb-16 max-w-2xl">
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-blue-500">
             Learning Paths
@@ -61,7 +61,7 @@ export default function LearnPage() {
         </div>
         <div className="grid gap-6 sm:grid-cols-3">
           {LEARN_TRACKS.map((track) => (
-            <div key={track.title} className="rounded-2xl bg-white p-8">
+            <div key={track.title} className="rounded-2xl bg-mist-50 p-8">
               <div className="mb-6 h-px w-8 bg-blue-500" />
               <h3 className="mb-3 text-lg font-medium text-navy-900">
                 {track.title}

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const LINES = [
   "const mission = 'build + empower';",
-  "function architect(order) { return systems; }",
+  "function translate(idea) { return systems; }",
   "> automation.deploy()",
   "> dashboard.render({ realtime: true })",
   "system.status: 'online'",

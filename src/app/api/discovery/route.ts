@@ -7,6 +7,7 @@ export async function POST(request: NextRequest) {
   const {
     name,
     email,
+    phone,
     businessName,
     industry,
     businessType,
@@ -17,8 +18,11 @@ export async function POST(request: NextRequest) {
     learnOther,
     buildServices,
     buildDetails,
+    budget,
+    timeline,
     scaleFeatures,
     scaleOther,
+    referralSource,
     message,
   } = body;
 
@@ -30,6 +34,8 @@ export async function POST(request: NextRequest) {
     !businessType ||
     !yearsOperating ||
     !audience ||
+    !budget ||
+    !timeline ||
     !Array.isArray(interests) ||
     interests.length === 0
   ) {
@@ -39,6 +45,7 @@ export async function POST(request: NextRequest) {
   const { error } = await supabase.from("discovery_submissions").insert({
     name,
     email,
+    phone,
     business_name: businessName,
     industry,
     business_type: businessType,
@@ -49,8 +56,11 @@ export async function POST(request: NextRequest) {
     learn_other: learnOther,
     build_services: buildServices ?? null,
     build_details: buildDetails,
+    budget,
+    timeline,
     scale_features: scaleFeatures ?? null,
     scale_other: scaleOther,
+    referral_source: referralSource,
     message,
   });
 
@@ -64,6 +74,7 @@ export async function POST(request: NextRequest) {
     `
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
+      ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
       <p><strong>Business:</strong> ${businessName}</p>
       <p><strong>Industry:</strong> ${industry}</p>
       <p><strong>Business Type:</strong> ${businessType}</p>
@@ -74,8 +85,11 @@ export async function POST(request: NextRequest) {
       ${learnOther ? `<p><strong>Learn Other:</strong> ${learnOther}</p>` : ""}
       ${buildServices?.length ? `<p><strong>Build Services:</strong> ${buildServices.join(", ")}</p>` : ""}
       ${buildDetails ? `<p><strong>Build Details:</strong> ${buildDetails}</p>` : ""}
+      <p><strong>Budget:</strong> ${budget}</p>
+      <p><strong>Timeline:</strong> ${timeline}</p>
       ${scaleFeatures?.length ? `<p><strong>Scale Features:</strong> ${scaleFeatures.join(", ")}</p>` : ""}
       ${scaleOther ? `<p><strong>Scale Other:</strong> ${scaleOther}</p>` : ""}
+      ${referralSource ? `<p><strong>Heard About Us:</strong> ${referralSource}</p>` : ""}
       ${message ? `<p><strong>Message:</strong> ${message}</p>` : ""}
     `
   );

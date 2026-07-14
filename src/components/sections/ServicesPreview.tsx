@@ -9,7 +9,7 @@ import { SERVICES } from "@/lib/content";
 
 export function ServicesPreview() {
   return (
-    <SectionWrapper tone="mist" decorated>
+    <SectionWrapper tone="light" decorated>
       <div className="mb-16 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <div className="max-w-xl">
           <Eyebrow index="04">Services</Eyebrow>
