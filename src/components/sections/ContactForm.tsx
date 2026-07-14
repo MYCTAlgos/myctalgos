@@ -33,7 +33,8 @@ export function ContactForm() {
       <div className="rounded-2xl border border-navy-900/10 bg-mist-50 p-8">
         <p className="text-lg font-medium text-navy-900">Message sent.</p>
         <p className="mt-2 text-sm leading-relaxed text-ink-500">
-          Thanks for reaching out. We&rsquo;ll be in touch soon.
+          Thanks for reaching out. We personally read every message and
+          reply within 1&ndash;2 business days.
         </p>
       </div>
     );

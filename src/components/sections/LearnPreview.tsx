@@ -15,7 +15,7 @@ export function LearnPreview() {
         transition={{ duration: 0.6 }}
         className="mx-auto max-w-2xl text-center"
       >
-        <Eyebrow index="05" tone="dark" centered>
+        <Eyebrow index="06" tone="dark" centered>
           Learn
         </Eyebrow>
         <h2 className="text-3xl font-medium tracking-tight text-white sm:text-4xl">

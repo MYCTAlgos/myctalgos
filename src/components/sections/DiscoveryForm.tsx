@@ -122,8 +122,9 @@ export function DiscoveryForm() {
           Thanks for sharing where you&rsquo;re at.
         </p>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-ink-500">
-          We&rsquo;ll review your answers and follow up with next steps for
-          building, learning, or both.
+          We personally review every submission and follow up within
+          1&ndash;2 business days to schedule a short intro call and talk
+          through next steps.
         </p>
       </div>
     );

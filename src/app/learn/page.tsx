@@ -56,10 +56,10 @@ export default function LearnPage() {
             Learning Paths
           </p>
           <h2 className="text-3xl font-medium tracking-tight text-navy-900 sm:text-4xl">
-            Three ways to grow.
+            How we teach.
           </h2>
         </div>
-        <div className="grid gap-6 sm:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2">
           {LEARN_TRACKS.map((track) => (
             <div key={track.title} className="rounded-2xl bg-mist-50 p-8">
               <div className="mb-6 h-px w-8 bg-blue-500" />

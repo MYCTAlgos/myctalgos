@@ -23,32 +23,37 @@ export const SERVICES = [
       "We take repetitive tasks off your team's plate so they can focus on the work that actually matters.",
   },
   {
-    title: "Technology Planning",
-    description:
-      "Before we write any code, we map out exactly how your business runs, then design technology that fits it.",
-  },
-  {
     title: "AI-Assisted Tools",
     description:
       "Custom tools built around AI, tailored to a specific problem in your business, not a generic chatbot.",
+  },
+  {
+    title: "Ongoing Maintenance & Support",
+    description:
+      "Once your tool is live, we're still here: updates, troubleshooting, and small changes as your business grows.",
   },
 ] as const;
 
 export const LEARN_TRACKS = [
   {
-    title: "Foundations of Technical Thinking",
+    title: "1:1 & Small-Group Coaching",
     description:
-      "How software and technology actually work, explained in plain language anyone can follow.",
+      "Hands-on sessions on AI tools like Claude and ChatGPT, tailored to your specific work.",
   },
   {
-    title: "Own Your Systems",
+    title: "Team Workshops",
     description:
-      "For clients who want to understand, maintain, and eventually grow the tools we build together.",
+      "Practical AI use cases for your staff: lesson planning, reporting, communications, and more.",
   },
   {
-    title: "AI & Automation Coaching",
+    title: "Office Hours Support",
     description:
-      "1:1 and small-group coaching on AI tools like Claude and ChatGPT, plus hands-on help automating your own work.",
+      "Ongoing help while you build and maintain your own tools, whenever you get stuck.",
+  },
+  {
+    title: "Custom Guides & SOPs",
+    description:
+      "Documentation your team can actually use to maintain what we build together.",
   },
 ] as const;
 
@@ -204,6 +209,31 @@ export const JOURNEY_STEPS = [
     icon: "Key",
     title: "You Own Your Technology",
     description: "The system is yours. No lock-in, no dependency on us.",
+  },
+] as const;
+
+export const PACKAGES = [
+  {
+    name: "Build Only",
+    included: "Scoped project, delivered and handed off with documentation.",
+    bestFor: "Clients who just need the tool, not the training.",
+  },
+  {
+    name: "Train Only",
+    included: "Coaching sessions or workshops, no build deliverable.",
+    bestFor: "Teams that want to build their own confidence and skills.",
+  },
+  {
+    name: "Build + Train",
+    included:
+      "Tool built together with you, with training baked into the process.",
+    bestFor: "Clients who want a working tool and long-term independence.",
+  },
+  {
+    name: "Ongoing Support",
+    included:
+      "Monthly retainer for maintenance, troubleshooting, and small updates.",
+    bestFor: "Clients with a live tool who want a safety net.",
   },
 ] as const;
 

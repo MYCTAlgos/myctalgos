@@ -10,7 +10,7 @@ export function Founders() {
   return (
     <SectionWrapper tone="light" decorated>
       <div className="mb-16 max-w-2xl">
-        <Eyebrow index="06">Founders</Eyebrow>
+        <Eyebrow index="07">Founders</Eyebrow>
         <h2 className="text-3xl font-medium tracking-tight text-navy-900 sm:text-4xl">
           Built by Mike &amp; Yadley Charles.
         </h2>

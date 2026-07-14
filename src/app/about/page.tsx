@@ -39,15 +39,18 @@ export default function AboutPage() {
           About
         </p>
         <h1 className="max-w-3xl text-4xl font-medium leading-tight tracking-tight text-navy-900 sm:text-5xl">
-          A technology company built for confidence, not confusion.
+          A husband-and-wife team who want you to feel confident with
+          technology.
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-500">
-          MYCTAlgos was founded by Mike and Yadley Charles on a simple
-          belief: technology should feel accessible, not intimidating.
-          Understandable, not mysterious. That&rsquo;s what it means to
-          translate technology into something you can actually use, and we
-          believe clarity like that reflects something greater than
-          ourselves.
+          Mike and Yadley Charles started MYCTAlgos together, pairing
+          Mike&rsquo;s background in software and support engineering with
+          Yadley&rsquo;s background in data and community program work.
+          We&rsquo;ve seen the same problem from two different angles: too
+          many small businesses, nonprofits, and entrepreneurs feel like
+          technology is something that happens to them, not something they
+          can actually use. That&rsquo;s what MYCTAlgos is for, whether we
+          build the tool for you or teach you to build it yourself.
         </p>
       </SectionWrapper>
 
