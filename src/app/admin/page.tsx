@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { AdminDashboard } from "@/components/admin/AdminDashboard";
 import { signOut } from "./login/actions";
+import { updateSubmissionStatus } from "./actions";
 import type { ContactSubmission, DiscoverySubmission } from "@/types/submissions";
 
 export default async function AdminPage() {
@@ -31,6 +32,7 @@ export default async function AdminPage() {
       discoveries={discoveries ?? []}
       userEmail={userData.user.email ?? "Admin"}
       signOutAction={signOut}
+      updateStatusAction={updateSubmissionStatus}
     />
   );
 }

@@ -29,4 +29,6 @@ export type DiscoverySubmission = {
   referral_source: string | null;
   message: string | null;
   created_at: string;
+  status: string;
+  status_notes: string | null;
 };

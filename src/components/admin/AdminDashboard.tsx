@@ -19,10 +19,21 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { BlueprintGrid } from "@/components/ui/BlueprintGrid";
+import { SubmissionModal } from "@/components/admin/SubmissionModal";
+import { STAGES, stageInfo } from "@/lib/client-status";
 import type { ContactSubmission, DiscoverySubmission } from "@/types/submissions";
 
 type View = "overview" | "contact" | "discovery";
 type InterestFilter = "all" | "build" | "learn" | "both";
+type Selected =
+  | { type: "contact"; id: string }
+  | { type: "discovery"; id: string }
+  | null;
+type UpdateStatusAction = (
+  id: string,
+  status: string,
+  statusNotes: string
+) => Promise<{ ok: boolean; error?: string }>;
 
 const INTEREST_FILTERS: { value: InterestFilter; label: string }[] = [
   { value: "all", label: "All" },
@@ -122,20 +133,38 @@ function TrendBadge({ deltaPct }: { deltaPct: number | null }) {
   );
 }
 
+function StageBadge({ status }: { status: string }) {
+  const stage = stageInfo(status);
+  const Icon = stage.icon;
+  return (
+    <span
+      className="flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-[11px]"
+      style={{ backgroundColor: `${stage.color}1a`, color: stage.color }}
+    >
+      <Icon size={11} />
+      {stage.label}
+    </span>
+  );
+}
+
 export function AdminDashboard({
   contacts,
   discoveries,
   userEmail,
   signOutAction,
+  updateStatusAction,
 }: {
   contacts: ContactSubmission[];
   discoveries: DiscoverySubmission[];
   userEmail: string;
   signOutAction: () => Promise<void>;
+  updateStatusAction: UpdateStatusAction;
 }) {
   const [view, setView] = useState<View>("overview");
   const [interestFilter, setInterestFilter] = useState<InterestFilter>("all");
   const [industryFilter, setIndustryFilter] = useState("all");
+  const [stageFilter, setStageFilter] = useState("all");
+  const [selected, setSelected] = useState<Selected>(null);
 
   const industries = useMemo(
     () => Array.from(new Set(discoveries.map((d) => d.industry))).sort(),
@@ -147,12 +176,14 @@ export function AdminDashboard({
       discoveries.filter(
         (d) =>
           matchesInterest(d.interests, interestFilter) &&
-          (industryFilter === "all" || d.industry === industryFilter)
+          (industryFilter === "all" || d.industry === industryFilter) &&
+          (stageFilter === "all" || d.status === stageFilter)
       ),
-    [discoveries, interestFilter, industryFilter]
+    [discoveries, interestFilter, industryFilter, stageFilter]
   );
 
-  const isFiltered = interestFilter !== "all" || industryFilter !== "all";
+  const isFiltered =
+    interestFilter !== "all" || industryFilter !== "all" || stageFilter !== "all";
 
   const contactTrend = useMemo(() => weekTrend(contacts), [contacts]);
   const discoveryTrend = useMemo(() => weekTrend(discoveries), [discoveries]);
@@ -190,6 +221,15 @@ export function AdminDashboard({
     contact: { eyebrow: "// Contact", title: "Contact Messages" },
     discovery: { eyebrow: "// Discovery", title: "Discovery Submissions" },
   };
+
+  const selectedContact =
+    selected?.type === "contact"
+      ? contacts.find((c) => c.id === selected.id) ?? null
+      : null;
+  const selectedDiscovery =
+    selected?.type === "discovery"
+      ? discoveries.find((d) => d.id === selected.id) ?? null
+      : null;
 
   return (
     <div className="flex min-h-screen flex-col bg-navy-950 md:flex-row">
@@ -311,7 +351,7 @@ export function AdminDashboard({
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-white/10 bg-navy-900 p-6">
+                <div className="mb-8 rounded-2xl border border-white/10 bg-navy-900 p-6">
                   <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
                     <div>
                       <h3 className="text-sm font-medium text-white">
@@ -398,6 +438,53 @@ export function AdminDashboard({
                     </div>
                   )}
                 </div>
+
+                <div className="rounded-2xl border border-white/10 bg-navy-900 p-6">
+                  <h3 className="mb-5 text-sm font-medium text-white">
+                    Client Pipeline
+                  </h3>
+                  {discoveries.length === 0 ? (
+                    <p className="text-sm text-white/50">No clients yet.</p>
+                  ) : (
+                    <div className="flex flex-col gap-4">
+                      {STAGES.map((stage) => {
+                        const Icon = stage.icon;
+                        const count = discoveries.filter(
+                          (d) => d.status === stage.value
+                        ).length;
+                        const pct =
+                          discoveries.length === 0
+                            ? 0
+                            : Math.round((count / discoveries.length) * 100);
+                        return (
+                          <div key={stage.value} className="flex items-center gap-3.5">
+                            <div
+                              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+                              style={{
+                                backgroundColor: `${stage.color}1a`,
+                                color: stage.color,
+                              }}
+                            >
+                              <Icon size={14} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="mb-1 flex items-center justify-between text-xs">
+                                <span className="text-white/70">{stage.label}</span>
+                                <span className="font-mono text-white/40">{count}</span>
+                              </div>
+                              <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                                <div
+                                  className="h-full rounded-full transition-all duration-300"
+                                  style={{ width: `${pct}%`, backgroundColor: stage.color }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               </>
             )}
 
@@ -410,7 +497,16 @@ export function AdminDashboard({
                     {contacts.map((c) => (
                       <div
                         key={c.id}
-                        className="flex items-start gap-4 rounded-xl border border-white/10 bg-navy-900 p-5 transition-colors duration-200 hover:border-blue-400/20"
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => setSelected({ type: "contact", id: c.id })}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setSelected({ type: "contact", id: c.id });
+                          }
+                        }}
+                        className="flex cursor-pointer items-start gap-4 rounded-xl border border-white/10 bg-navy-900 p-5 transition-colors duration-200 hover:border-blue-400/30"
                       >
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-sky-400 font-mono text-sm font-semibold text-white">
                           {initials(c.name)}
@@ -427,7 +523,7 @@ export function AdminDashboard({
                               {formatDate(c.created_at)}
                             </p>
                           </div>
-                          <p className="text-sm leading-relaxed text-white/60">
+                          <p className="line-clamp-2 text-sm leading-relaxed text-white/60">
                             {c.message}
                           </p>
                         </div>
@@ -464,6 +560,18 @@ export function AdminDashboard({
                       ))}
                     </div>
                     <select
+                      value={stageFilter}
+                      onChange={(e) => setStageFilter(e.target.value)}
+                      className="rounded-full border border-white/10 bg-navy-900 px-4 py-2 text-xs font-medium text-white/70 outline-none transition-colors duration-200 focus:border-blue-400"
+                    >
+                      <option value="all">All Stages</option>
+                      {STAGES.map((stage) => (
+                        <option key={stage.value} value={stage.value}>
+                          {stage.label}
+                        </option>
+                      ))}
+                    </select>
+                    <select
                       value={industryFilter}
                       onChange={(e) => setIndustryFilter(e.target.value)}
                       className="rounded-full border border-white/10 bg-navy-900 px-4 py-2 text-xs font-medium text-white/70 outline-none transition-colors duration-200 focus:border-blue-400"
@@ -489,7 +597,16 @@ export function AdminDashboard({
                     {filteredDiscoveries.map((d) => (
                       <div
                         key={d.id}
-                        className="rounded-2xl border border-white/10 bg-navy-900 p-6 transition-colors duration-200 hover:border-blue-400/20"
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => setSelected({ type: "discovery", id: d.id })}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setSelected({ type: "discovery", id: d.id });
+                          }
+                        }}
+                        className="cursor-pointer rounded-2xl border border-white/10 bg-navy-900 p-6 transition-colors duration-200 hover:border-blue-400/30"
                       >
                         <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
                           <div className="flex items-center gap-3.5">
@@ -503,57 +620,18 @@ export function AdminDashboard({
                                   &middot; {d.business_name}
                                 </span>
                               </p>
-                              <p className="text-sm text-white/50">
-                                {d.email}
-                                {d.phone ? ` · ${d.phone}` : ""}
-                              </p>
+                              <p className="text-sm text-white/50">{d.industry}</p>
                             </div>
                           </div>
-                          <p className="font-mono text-xs text-white/30">
-                            {formatDate(d.created_at)}
-                          </p>
-                        </div>
-
-                        <div className="mb-4 grid gap-3 text-sm sm:grid-cols-3">
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-white/30">
-                              Industry
+                          <div className="flex flex-col items-end gap-2">
+                            <StageBadge status={d.status} />
+                            <p className="font-mono text-xs text-white/30">
+                              {formatDate(d.created_at)}
                             </p>
-                            <p className="text-white/80">{d.industry}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-white/30">
-                              Business Type
-                            </p>
-                            <p className="text-white/80">{d.business_type}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-white/30">
-                              Years Operating
-                            </p>
-                            <p className="text-white/80">{d.years_operating}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-white/30">
-                              Audience
-                            </p>
-                            <p className="text-white/80">{d.audience}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-white/30">
-                              Budget
-                            </p>
-                            <p className="text-white/80">{d.budget}</p>
-                          </div>
-                          <div>
-                            <p className="text-xs uppercase tracking-wider text-white/30">
-                              Timeline
-                            </p>
-                            <p className="text-white/80">{d.timeline}</p>
                           </div>
                         </div>
 
-                        <div className="mb-3 flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2">
                           {d.interests.map((interest) => (
                             <span
                               key={interest}
@@ -563,44 +641,6 @@ export function AdminDashboard({
                             </span>
                           ))}
                         </div>
-
-                        {d.learn_topics && d.learn_topics.length > 0 && (
-                          <p className="mb-1 text-xs leading-relaxed text-white/60">
-                            <span className="text-white/30">Learn topics: </span>
-                            {d.learn_topics.join(", ")}
-                            {d.learn_other ? `, ${d.learn_other}` : ""}
-                          </p>
-                        )}
-                        {d.build_services && d.build_services.length > 0 && (
-                          <p className="mb-1 text-xs leading-relaxed text-white/60">
-                            <span className="text-white/30">Build services: </span>
-                            {d.build_services.join(", ")}
-                          </p>
-                        )}
-                        {d.build_details && (
-                          <p className="mb-1 text-xs leading-relaxed text-white/60">
-                            <span className="text-white/30">Build details: </span>
-                            {d.build_details}
-                          </p>
-                        )}
-                        {d.scale_features && d.scale_features.length > 0 && (
-                          <p className="mb-1 text-xs leading-relaxed text-white/60">
-                            <span className="text-white/30">Scale features: </span>
-                            {d.scale_features.join(", ")}
-                            {d.scale_other ? `, ${d.scale_other}` : ""}
-                          </p>
-                        )}
-                        {d.referral_source && (
-                          <p className="mb-1 text-xs leading-relaxed text-white/60">
-                            <span className="text-white/30">Heard about us: </span>
-                            {d.referral_source}
-                          </p>
-                        )}
-                        {d.message && (
-                          <p className="mt-2 text-sm leading-relaxed text-white/70">
-                            {d.message}
-                          </p>
-                        )}
                       </div>
                     ))}
                   </div>
@@ -610,6 +650,22 @@ export function AdminDashboard({
           </div>
         </div>
       </div>
+
+      {selectedContact && (
+        <SubmissionModal
+          type="contact"
+          item={selectedContact}
+          onClose={() => setSelected(null)}
+        />
+      )}
+      {selectedDiscovery && (
+        <SubmissionModal
+          type="discovery"
+          item={selectedDiscovery}
+          onClose={() => setSelected(null)}
+          updateStatusAction={updateStatusAction}
+        />
+      )}
     </div>
   );
 }

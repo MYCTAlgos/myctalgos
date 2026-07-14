@@ -79,3 +79,24 @@ create policy "Allow authenticated read" on discovery_submissions
   using (true);
 
 grant select on discovery_submissions to authenticated;
+
+-- Client status tracking: lets the admin dashboard track project stage and
+-- internal notes per discovery submission (i.e. per client). Restricted to
+-- the "status" and "status_notes" columns via column-level grant, so
+-- authenticated admins can update progress without being able to touch the
+-- client's original submitted answers.
+alter table discovery_submissions add column if not exists status text not null default 'idea';
+alter table discovery_submissions add column if not exists status_notes text;
+
+alter table discovery_submissions drop constraint if exists discovery_status_check;
+alter table discovery_submissions add constraint discovery_status_check
+  check (status in ('idea', 'learning', 'building', 'teaching', 'delivered'));
+
+drop policy if exists "Allow authenticated update status" on discovery_submissions;
+create policy "Allow authenticated update status" on discovery_submissions
+  for update
+  to authenticated
+  using (true)
+  with check (true);
+
+grant update (status, status_notes) on discovery_submissions to authenticated;
