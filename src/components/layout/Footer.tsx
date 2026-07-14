@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS, SITE } from "@/lib/content";
 
@@ -7,10 +8,14 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 lg:px-12">
         <div className="flex flex-col gap-12 md:flex-row md:justify-between">
           <div className="max-w-sm">
-            <p className="text-base font-semibold tracking-tight">
-              {SITE.name}
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-white/60">
+            <Image
+              src="/logo-dark.png"
+              alt={SITE.name}
+              width={548}
+              height={300}
+              className="mb-4 h-10 w-auto"
+            />
+            <p className="text-sm leading-relaxed text-white/60">
               We build custom web applications and empower people to
               understand and own the technology behind their work.
             </p>
