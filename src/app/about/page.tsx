@@ -81,12 +81,15 @@ export default function AboutPage() {
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
           {VALUES.map((value) => (
-            <div key={value.title} className="rounded-2xl bg-mist-50 p-8">
-              <div className="mb-6 h-px w-8 bg-blue-500" />
-              <h3 className="mb-3 text-lg font-medium text-navy-900">
+            <div
+              key={value.title}
+              className="rounded-2xl border border-white/10 bg-navy-900 p-8 transition-colors duration-200 hover:border-blue-400/40"
+            >
+              <div className="mb-6 h-px w-8 bg-sky-400" />
+              <h3 className="mb-3 text-lg font-medium text-white">
                 {value.title}
               </h3>
-              <p className="text-sm leading-relaxed text-ink-500">
+              <p className="text-sm leading-relaxed text-white/75">
                 {value.description}
               </p>
             </div>
