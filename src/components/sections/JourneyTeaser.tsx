@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 export function JourneyTeaser() {
   return (
-    <SectionWrapper tone="light" decorated>
+    <SectionWrapper tone="light">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}

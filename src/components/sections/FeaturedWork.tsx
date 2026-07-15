@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 export function FeaturedWork() {
   return (
-    <SectionWrapper tone="light" decorated>
+    <SectionWrapper tone="light">
       <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

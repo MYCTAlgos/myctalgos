@@ -1,51 +1,87 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import { BlueprintGrid } from "@/components/ui/BlueprintGrid";
-import { BackgroundBlobs } from "@/components/ui/BackgroundBlobs";
+import { Blob } from "@/components/ui/Blob";
 import { SITE } from "@/lib/content";
 
-export function Hero() {
-  return (
-    <section className="relative overflow-hidden bg-navy-950">
-      <BackgroundBlobs tone="dark" />
-      <BlueprintGrid tone="dark" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(47,111,237,0.22),transparent_55%)]" />
+const HERO_GRADIENT =
+  "linear-gradient(180deg, #ffffff 0%, #ffffff 75%, #0b1220 93%, #060a14 100%)";
 
-      <div className="relative mx-auto max-w-3xl px-6 pb-28 pt-40 sm:px-8 lg:pb-36 lg:pt-48 lg:px-12">
-        <motion.span
-          initial={{ opacity: 0, y: 8 }}
+export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const blobY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden"
+      style={{ background: HERO_GRADIENT }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden
+      >
+        <motion.div style={{ y: blobY }} className="absolute inset-0">
+          <Blob
+            size={620}
+            top="-10%"
+            left="56%"
+            from="var(--color-blue-500)"
+            to="var(--color-blue-700)"
+            opacity={0.55}
+            duration={26}
+            className="hidden blur-2xl sm:block sm:blur-3xl"
+          />
+        </motion.div>
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-2xl px-6 pb-32 pt-28 text-center sm:px-8 sm:pb-48 sm:pt-36 lg:pb-80 lg:pt-44">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-6 inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-sky-300"
+          className="mb-10 flex justify-center"
         >
-          {SITE.name}
-        </motion.span>
+          <Image
+            src="/logo.png"
+            alt={SITE.name}
+            width={1536}
+            height={1024}
+            priority
+            className="h-16 w-auto sm:h-20"
+          />
+        </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="max-w-xl text-5xl font-medium leading-[1.1] tracking-tight text-white sm:text-6xl"
+          className="text-5xl font-medium leading-[1.08] tracking-tight text-navy-900 sm:text-6xl lg:text-7xl"
         >
           {SITE.tagline}
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-8 max-w-lg text-lg leading-relaxed text-white/70"
+          className="mx-auto mt-7 max-w-md text-lg leading-relaxed text-ink-500"
         >
           {SITE.subtext}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-10 flex flex-wrap gap-4"
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
           <Button
             href="/discovery"
@@ -54,11 +90,7 @@ export function Hero() {
           >
             Build With Us
           </Button>
-          <Button
-            href="/learn"
-            variant="secondary"
-            className="!border-white/25 !text-white hover:!border-gold-400 hover:!text-gold-300"
-          >
+          <Button href="/learn" variant="secondary">
             Learn With Us
           </Button>
         </motion.div>
