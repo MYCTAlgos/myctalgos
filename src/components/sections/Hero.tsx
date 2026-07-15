@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { Blob } from "@/components/ui/Blob";
+import { HeroCarousel } from "@/components/ui/HeroCarousel";
 import { SITE } from "@/lib/content";
 
 export function Hero() {
@@ -38,7 +39,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-2xl px-6 pb-24 pt-28 text-center sm:px-8 sm:pb-32 sm:pt-36 lg:pb-40 lg:pt-44">
+      <div className="relative z-10 mx-auto max-w-2xl px-6 pb-8 pt-28 text-center sm:px-8 sm:pb-12 sm:pt-36 lg:pb-16 lg:pt-44">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -89,6 +90,14 @@ export function Hero() {
           <Button href="/learn" variant="secondary">
             Learn With Us
           </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+        >
+          <HeroCarousel />
         </motion.div>
       </div>
     </section>

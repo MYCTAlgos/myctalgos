@@ -37,9 +37,9 @@ export function WhatWeDo() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
-            className="rounded-2xl bg-navy-900 p-10 lg:p-12"
+            className="rounded-2xl bg-gradient-to-br from-sky-400 via-blue-500 to-blue-700 p-10 lg:p-12"
           >
-            <p className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-sky-300">
+            <p className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-white/80">
               {panel.label}
             </p>
             <h3 className="mb-4 text-2xl font-medium tracking-tight text-white">
