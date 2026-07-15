@@ -4,41 +4,22 @@ import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
-import { Blob } from "@/components/ui/Blob";
 
 export function FeaturedWork() {
   return (
-    <SectionWrapper tone="dark">
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        aria-hidden
-      >
-        <Blob
-          size={340}
-          top="60%"
-          left="-6%"
-          from="var(--color-sky-400)"
-          mid="var(--color-blue-500)"
-          to="var(--color-blue-700)"
-          opacity={0.16}
-          duration={32}
-          className="hidden sm:block"
-        />
-      </div>
-      <div className="relative grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+    <SectionWrapper tone="light">
+      <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
         >
-          <Eyebrow index="05" tone="dark">
-            Featured Work
-          </Eyebrow>
-          <h2 className="text-3xl font-medium tracking-tight text-white sm:text-4xl">
+          <Eyebrow index="04">Featured Work</Eyebrow>
+          <h2 className="text-3xl font-medium tracking-tight text-navy-900 sm:text-4xl">
             A live example, not just a mockup.
           </h2>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-white/70">
+          <p className="mt-6 max-w-md text-base leading-relaxed text-ink-500">
             Our first build was a client discovery intake platform for a
             wellness-adjacent services business: a form that adapts based on
             each client&rsquo;s industry, backed by a live database.
@@ -61,7 +42,7 @@ export function FeaturedWork() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="rounded-2xl border border-white/10 bg-navy-950 p-6"
+          className="rounded-2xl border border-navy-900/10 bg-navy-950 p-6"
         >
           <div className="mb-4 flex gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
