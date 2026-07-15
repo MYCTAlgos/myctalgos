@@ -24,13 +24,13 @@ export function Hero() {
       >
         <motion.div style={{ y: blobY }} className="absolute inset-0">
           <Blob
-            size={460}
-            top="-4%"
-            left="60%"
+            size={620}
+            top="-2%"
+            left="calc(50% - 310px)"
             from="var(--color-sky-400)"
             mid="var(--color-blue-500)"
             to="var(--color-blue-700)"
-            opacity={0.9}
+            opacity={0.6}
             duration={30}
             sheen
             shadow
