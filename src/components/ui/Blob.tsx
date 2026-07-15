@@ -11,9 +11,14 @@ type BlobProps = {
   top?: string;
   left?: string;
   from?: string;
+  mid?: string;
   to?: string;
   opacity?: number;
   duration?: number;
+  /** Adds a soft glossy highlight, clipped to the shape, for a more sculptural, dimensional read. */
+  sheen?: boolean;
+  /** Adds a soft drop shadow beneath the shape instead of relying on blur for softness. */
+  shadow?: boolean;
   className?: string;
 };
 
@@ -22,28 +27,63 @@ export function Blob({
   top = "0%",
   left = "0%",
   from = "var(--color-blue-600)",
+  mid,
   to = "var(--color-navy-950)",
   opacity = 0.4,
   duration = 24,
+  sheen = false,
+  shadow = false,
   className = "",
 }: BlobProps) {
   const gradientId = useId();
+  const sheenId = useId();
+  const clipId = useId();
 
   return (
     <motion.svg
       viewBox="-100 -100 200 200"
       className={`absolute ${className}`}
-      style={{ width: size, height: size, top, left, opacity }}
+      style={{
+        width: size,
+        height: size,
+        top,
+        left,
+        opacity,
+        filter: shadow
+          ? "drop-shadow(0 28px 50px rgba(29, 64, 175, 0.3))"
+          : undefined,
+      }}
       animate={{ rotate: [0, 14, -10, 0], scale: [1, 1.06, 0.96, 1] }}
       transition={{ duration, repeat: Infinity, ease: "easeInOut" }}
     >
       <defs>
-        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id={gradientId} x1="10%" y1="0%" x2="90%" y2="100%">
           <stop offset="0%" stopColor={from} />
+          {mid && <stop offset="55%" stopColor={mid} />}
           <stop offset="100%" stopColor={to} />
         </linearGradient>
+        {sheen && (
+          <radialGradient id={sheenId} cx="32%" cy="24%" r="55%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </radialGradient>
+        )}
+        <clipPath id={clipId}>
+          <path d={BLOB_PATH} />
+        </clipPath>
       </defs>
       <path d={BLOB_PATH} fill={`url(#${gradientId})`} />
+      {sheen && (
+        <g clipPath={`url(#${clipId})`}>
+          <rect
+            x="-100"
+            y="-100"
+            width="200"
+            height="200"
+            fill={`url(#${sheenId})`}
+          />
+        </g>
+      )}
     </motion.svg>
   );
 }

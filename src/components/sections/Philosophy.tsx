@@ -7,7 +7,7 @@ import { SITE } from "@/lib/content";
 
 export function Philosophy() {
   return (
-    <SectionWrapper tone="dark">
+    <SectionWrapper tone="transparent-light">
       <div className="mx-auto max-w-3xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 12 }}

@@ -5,7 +5,7 @@ type SectionWrapperProps = {
   children: React.ReactNode;
   className?: string;
   innerClassName?: string;
-  tone?: "light" | "dark" | "mist";
+  tone?: "light" | "dark" | "mist" | "transparent-dark" | "transparent-light";
   decorated?: boolean;
   id?: string;
 };
@@ -14,6 +14,11 @@ const TONE_STYLES: Record<NonNullable<SectionWrapperProps["tone"]>, string> = {
   light: "bg-white text-navy-900",
   dark: "bg-navy-900 text-white",
   mist: "bg-mist-50 text-navy-900",
+  // No background paint — lets a shared ambient gradient behind the
+  // section (e.g. the homepage's continuous chapter background) show
+  // through, while still setting sensible default text color.
+  "transparent-dark": "text-navy-900",
+  "transparent-light": "text-white",
 };
 
 export function SectionWrapper({

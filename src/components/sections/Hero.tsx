@@ -7,42 +7,38 @@ import { Button } from "@/components/ui/Button";
 import { Blob } from "@/components/ui/Blob";
 import { SITE } from "@/lib/content";
 
-const HERO_GRADIENT =
-  "linear-gradient(180deg, #ffffff 0%, #ffffff 75%, #0b1220 93%, #060a14 100%)";
-
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const blobY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const blobY = useTransform(scrollYProgress, [0, 1], [0, 70]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden"
-      style={{ background: HERO_GRADIENT }}
-    >
+    <section ref={sectionRef} className="relative overflow-hidden">
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden
       >
         <motion.div style={{ y: blobY }} className="absolute inset-0">
           <Blob
-            size={620}
-            top="-10%"
-            left="56%"
-            from="var(--color-blue-500)"
+            size={460}
+            top="-4%"
+            left="60%"
+            from="var(--color-sky-400)"
+            mid="var(--color-blue-500)"
             to="var(--color-blue-700)"
-            opacity={0.55}
-            duration={26}
-            className="hidden blur-2xl sm:block sm:blur-3xl"
+            opacity={0.9}
+            duration={30}
+            sheen
+            shadow
+            className="hidden sm:block"
           />
         </motion.div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-2xl px-6 pb-32 pt-28 text-center sm:px-8 sm:pb-48 sm:pt-36 lg:pb-80 lg:pt-44">
+      <div className="relative z-10 mx-auto max-w-2xl px-6 pb-24 pt-28 text-center sm:px-8 sm:pb-32 sm:pt-36 lg:pb-40 lg:pt-44">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

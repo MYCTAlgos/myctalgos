@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 export function LearnPreview() {
   return (
-    <SectionWrapper tone="dark">
+    <SectionWrapper tone="transparent-light">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}

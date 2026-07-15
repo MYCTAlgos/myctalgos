@@ -21,7 +21,7 @@ const PANELS = [
 
 export function WhatWeDo() {
   return (
-    <SectionWrapper tone="light">
+    <SectionWrapper tone="transparent-dark">
       <div className="mb-16 max-w-2xl">
         <Eyebrow index="01">What We Do</Eyebrow>
         <h2 className="text-3xl font-medium tracking-tight text-navy-900 sm:text-4xl">

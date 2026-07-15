@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 export function FeaturedWork() {
   return (
-    <SectionWrapper tone="light">
+    <SectionWrapper tone="transparent-light">
       <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -15,11 +15,13 @@ export function FeaturedWork() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6 }}
         >
-          <Eyebrow index="05">Featured Work</Eyebrow>
-          <h2 className="text-3xl font-medium tracking-tight text-navy-900 sm:text-4xl">
+          <Eyebrow index="05" tone="dark">
+            Featured Work
+          </Eyebrow>
+          <h2 className="text-3xl font-medium tracking-tight text-white sm:text-4xl">
             A live example, not just a mockup.
           </h2>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-ink-500">
+          <p className="mt-6 max-w-md text-base leading-relaxed text-white/70">
             Our first build was a client discovery intake platform for a
             wellness-adjacent services business: a form that adapts based on
             each client&rsquo;s industry, backed by a live database.
@@ -27,7 +29,11 @@ export function FeaturedWork() {
             own Discovery form runs on the exact same pattern.
           </p>
           <div className="mt-8">
-            <Button href="/discovery" variant="primary">
+            <Button
+              href="/discovery"
+              variant="primary"
+              className="!border-none !bg-gradient-to-r !from-blue-600 !to-sky-400 hover:!opacity-90"
+            >
               Try It Yourself
             </Button>
           </div>
@@ -38,7 +44,7 @@ export function FeaturedWork() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="rounded-2xl border border-navy-900/10 bg-navy-950 p-6"
+          className="rounded-2xl border border-white/10 bg-navy-950 p-6"
         >
           <div className="mb-4 flex gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
