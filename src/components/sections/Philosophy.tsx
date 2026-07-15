@@ -3,12 +3,29 @@
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Blob } from "@/components/ui/Blob";
 import { SITE } from "@/lib/content";
 
 export function Philosophy() {
   return (
     <SectionWrapper tone="dark">
-      <div className="mx-auto max-w-3xl text-center">
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden
+      >
+        <Blob
+          size={380}
+          top="-8%"
+          left="72%"
+          from="var(--color-sky-400)"
+          mid="var(--color-blue-500)"
+          to="var(--color-blue-700)"
+          opacity={0.18}
+          duration={34}
+          className="hidden sm:block"
+        />
+      </div>
+      <div className="relative mx-auto max-w-3xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}

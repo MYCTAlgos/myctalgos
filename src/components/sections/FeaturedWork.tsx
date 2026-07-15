@@ -4,11 +4,28 @@ import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
+import { Blob } from "@/components/ui/Blob";
 
 export function FeaturedWork() {
   return (
     <SectionWrapper tone="dark">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden
+      >
+        <Blob
+          size={340}
+          top="60%"
+          left="-6%"
+          from="var(--color-sky-400)"
+          mid="var(--color-blue-500)"
+          to="var(--color-blue-700)"
+          opacity={0.16}
+          duration={32}
+          className="hidden sm:block"
+        />
+      </div>
+      <div className="relative grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

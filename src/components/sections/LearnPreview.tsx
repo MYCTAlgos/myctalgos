@@ -4,16 +4,33 @@ import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
+import { Blob } from "@/components/ui/Blob";
 
 export function LearnPreview() {
   return (
     <SectionWrapper tone="dark">
+      <div
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden
+      >
+        <Blob
+          size={360}
+          top="-10%"
+          left="18%"
+          from="var(--color-sky-400)"
+          mid="var(--color-blue-500)"
+          to="var(--color-blue-700)"
+          opacity={0.16}
+          duration={30}
+          className="hidden sm:block"
+        />
+      </div>
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6 }}
-        className="mx-auto max-w-2xl text-center"
+        className="relative mx-auto max-w-2xl text-center"
       >
         <Eyebrow index="06" tone="dark" centered>
           Learn
