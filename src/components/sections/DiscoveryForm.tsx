@@ -124,7 +124,9 @@ export function DiscoveryForm() {
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-ink-500">
           We personally review every submission and follow up within
           1&ndash;2 business days to schedule a short intro call and talk
-          through next steps.
+          through next steps. We&rsquo;ve also sent a confirmation to your
+          email &mdash; check your spam folder if you don&rsquo;t see it in
+          your inbox.
         </p>
       </div>
     );

@@ -34,7 +34,9 @@ export function ContactForm() {
         <p className="text-lg font-medium text-navy-900">Message sent.</p>
         <p className="mt-2 text-sm leading-relaxed text-ink-500">
           Thanks for reaching out. We personally read every message and
-          reply within 1&ndash;2 business days.
+          reply within 1&ndash;2 business days. We&rsquo;ve also sent a
+          confirmation to your email &mdash; check your spam folder if you
+          don&rsquo;t see it in your inbox.
         </p>
       </div>
     );
