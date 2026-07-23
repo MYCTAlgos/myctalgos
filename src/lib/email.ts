@@ -11,12 +11,15 @@ export async function sendNotificationEmail(subject: string, html: string) {
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: FROM,
       to: NOTIFY_EMAIL,
       subject,
       html,
     });
+    if (error) {
+      console.error("Failed to send notification email:", error);
+    }
   } catch (error) {
     console.error("Failed to send notification email:", error);
   }
@@ -48,12 +51,15 @@ export async function sendConfirmationEmail(
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: FROM,
       to,
       subject: "We got your message — MYCTAlgos",
       html,
     });
+    if (error) {
+      console.error("Failed to send confirmation email:", error);
+    }
   } catch (error) {
     console.error("Failed to send confirmation email:", error);
   }
