@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 
 const NOTIFY_EMAIL = "myctalgos@gmail.com";
-const FROM = "MYCTAlgos <onboarding@resend.dev>";
+const FROM = "MYCTAlgos <hello@myctalgos.com>";
 
 export async function sendNotificationEmail(subject: string, html: string) {
   if (!process.env.RESEND_API_KEY) {
@@ -49,22 +49,18 @@ export async function sendConfirmationEmail(
     </div>
   `;
 
-  console.log(`[confirmation email] attempting send to ${to}`);
-
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: FROM,
       to,
       subject: "We got your message — MYCTAlgos",
       html,
     });
     if (error) {
-      console.error("[confirmation email] Resend returned an error:", error);
-    } else {
-      console.log("[confirmation email] sent, id:", data?.id);
+      console.error("Failed to send confirmation email:", error);
     }
   } catch (error) {
-    console.error("[confirmation email] threw an exception:", error);
+    console.error("Failed to send confirmation email:", error);
   }
 }
