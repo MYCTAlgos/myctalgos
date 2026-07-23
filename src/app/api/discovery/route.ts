@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
-import { sendNotificationEmail } from "@/lib/email";
+import { sendNotificationEmail, sendConfirmationEmail } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -93,6 +93,8 @@ export async function POST(request: NextRequest) {
       ${message ? `<p><strong>Message:</strong> ${message}</p>` : ""}
     `
   );
+
+  await sendConfirmationEmail(email, name, "discovery");
 
   return NextResponse.json({ ok: true });
 }
