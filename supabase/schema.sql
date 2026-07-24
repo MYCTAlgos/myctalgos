@@ -100,3 +100,17 @@ create policy "Allow authenticated update status" on discovery_submissions
   with check (true);
 
 grant update (status, status_notes) on discovery_submissions to authenticated;
+
+-- Day-after Calendly follow-up: a cron job (using the service_role key,
+-- which bypasses RLS) checks for submissions from ~24-48 hours ago that
+-- haven't been followed up on yet, and marks them once the email sends.
+alter table contact_submissions add column if not exists followup_sent_at timestamptz;
+alter table discovery_submissions add column if not exists followup_sent_at timestamptz;
+
+-- Backfill: mark all existing rows (test submissions and your actual first
+-- client) as already followed-up, so the cron only ever acts on submissions
+-- from this point forward. Without this, the very first cron run could
+-- email a confusing "please schedule" note to someone you're already
+-- talking to.
+update contact_submissions set followup_sent_at = now() where followup_sent_at is null;
+update discovery_submissions set followup_sent_at = now() where followup_sent_at is null;
